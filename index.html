@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>¿Sobrevivirías a un apocalipsis?</title>
+  <style>
+    body {
+      background-color: #fce4ec;
+      font-family: Arial, sans-serif;
+      color: #ad1457;
+      text-align: center;
+      padding: 30px;
+    }
+
+    h1 {
+      color: #ec407a;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #ad1457;
+      margin-top: 30px;
+      font-size: 1.5rem;
+    }
+
+    .option {
+      margin: 10px 0;
+      padding: 10px;
+      background: #f8bbd0;
+      color: #ad1457;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-block;
+      width: 250px;
+      transition: 0.3s ease;
+    }
+
+    .option:hover {
+      background: #ec407a;
+      color: white;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: #ec407a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 30px;
+      font-size: 1.5rem;
+      color: #ec407a;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>¿Sobrevivirías a un apocalipsis? 🧟‍♂️</h1>
+
+  <form id="apocalypseForm" action="https://formspree.io/f/mdkdogjn" method="POST">
+    <h2>1. ¿Qué armas llevarías?</h2>
+    <label class="option"><input type="radio" name="armas" value="Espada"> Espada ⚔️</label><br>
+    <label class="option"><input type="radio" name="armas" value="Arco"> Arco y flechas 🏹</label><br>
+    <label class="option"><input type="radio" name="armas" value="Comida"> Comida y medicinas 🥫</label><br>
+    <label class="option"><input type="radio" name="armas" value="Nada"> Nada, me escondería 😅</label>
+
+    <h2>2. ¿A dónde irías primero?</h2>
+    <label class="option"><input type="radio" name="lugar" value="Supermercado"> Un supermercado 🛒</label><br>
+    <label class="option"><input type="radio" name="lugar" value="Montaña"> A la montaña 🏔️</label><br>
+    <label class="option"><input type="radio" name="lugar" value="Refugio"> A un refugio subterráneo 🕳️</label><br>
+    <label class="option"><input type="radio" name="lugar" value="Casa"> Me quedaría en casa 😇</label>
+
+    <h2>3. ¿Con quién te gustaría estar?</h2>
+    <label class="option"><input type="radio" name="compania" value="Familia"> Con mi familia 👨‍👩‍👧‍👦</label><br>
+    <label class="option"><input type="radio" name="compania" value="Amigos"> Con amigos divertidos 😎</label><br>
+    <label class="option"><input type="radio" name="compania" value="Fuerte"> Con alguien fuerte que me proteja 💪</label><br>
+    <label class="option"><input type="radio" name="compania" value="Solo"> Solo, soy un lobo solitario 🐺</label>
+
+    <br><button type="submit">Ver probabilidad</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    const form = document.getElementById("apocalypseForm");
+    const result = document.getElementById("result");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // Puntuaciones
+      let score = 0;
+      const armas = form.armas.value;
+      const lugar = form.lugar.value;
+      const compania = form.compania.value;
+
+      if (armas === "Espada") score += 30;
+      if (armas === "Arco") score += 25;
+      if (armas === "Comida") score += 15;
+      if (armas === "Nada") score += 5;
+
+      if (lugar === "Refugio") score += 30;
+      if (lugar === "Montaña") score += 25;
+      if (lugar === "Supermercado") score += 15;
+      if (lugar === "Casa") score += 5;
+
+      if (compania === "Fuerte") score += 30;
+      if (compania === "Familia") score += 20;
+      if (compania === "Amigos") score += 15;
+      if (compania === "Solo") score += 10;
+
+      const prob = Math.min(score, 90); // máximo 90%
+      let mensaje = "";
+
+      if (prob >= 70) {
+        mensaje = `¡Sobrevivirías casi seguro! Probabilidad: ${prob}% 😎`;
+      } else if (prob >= 40) {
+        mensaje = `Sobrevivirías con suerte... Probabilidad: ${prob}% 😅`;
+      } else {
+        mensaje = `Te comerían los zombis en 5 minutos 😂 Probabilidad: ${prob}%`;
+      }
+
+      result.textContent = mensaje;
+
+      form.submit(); // Envía también las respuestas a tu correo
+    });
+  </script>
+</body>
+</html>
